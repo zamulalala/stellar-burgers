@@ -30,15 +30,17 @@ const App = () => {
     if (localStorage.getItem('refreshToken')) {
       dispatch(fetchUser());
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchIngredients());
-  }, [dispatch]);
+  }, []);
 
   const handleCloseModal = () => {
     navigate(-1);
   };
+
+  const onlyUnAuth = true;
 
   return (
     <div className={styles.app}>
@@ -49,15 +51,15 @@ const App = () => {
         <Route
           path='/login'
           element={
-            // <ProtectedRoute onlyUnAuth>
-            <Login />
-            // </ProtectedRoute>
+            <ProtectedRoute onlyUnAuth={onlyUnAuth}>
+              <Login />
+            </ProtectedRoute>
           }
         />
         <Route
           path='/register'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute onlyUnAuth={onlyUnAuth}>
               <Register />
             </ProtectedRoute>
           }
@@ -65,7 +67,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute onlyUnAuth={onlyUnAuth}>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -73,7 +75,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute onlyUnAuth={onlyUnAuth}>
               <ResetPassword />
             </ProtectedRoute>
           }

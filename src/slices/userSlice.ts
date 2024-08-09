@@ -11,11 +11,14 @@ import {
   updateUserApi
 } from '../utils/burger-api';
 import { TUser } from '@utils-types';
-import { setCookie } from './../utils/cookie';
+import { getCookie, setCookie } from './../utils/cookie';
 
 const initialState = {
-  user: null as TUser | null,
-  isAuthenticated: false,
+  user: {
+    name: '',
+    email: ''
+  } as TUser,
+  isAuthenticated: getCookie('accessToken') ? true : false,
   loadingStatus: 'idle' as 'idle' | 'loading' | 'error',
   error: null as string | null
 };
@@ -131,7 +134,10 @@ const userSlice = createSlice({
       state.error = null;
     },
     clearUser(state) {
-      state.user = null;
+      state.user = {
+        name: '',
+        email: ''
+      };
       state.isAuthenticated = false;
     }
   },
@@ -161,7 +167,10 @@ const userSlice = createSlice({
       .addCase(logoutUser.pending, handlePending)
       .addCase(logoutUser.fulfilled, (state) => {
         state.loadingStatus = 'idle';
-        state.user = null;
+        state.user = {
+          name: '',
+          email: ''
+        };
         state.isAuthenticated = false;
       })
       .addCase(logoutUser.rejected, handleRejected)

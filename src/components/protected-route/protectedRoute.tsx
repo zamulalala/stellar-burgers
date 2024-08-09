@@ -9,20 +9,21 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute = ({
-  onlyUnAuth,
+  onlyUnAuth = false,
   children
 }: ProtectedRouteProps) => {
-  const isAuthChecked = useSelector(getIsAuthenticated); // isAuthCheckedSelector — селектор получения состояния загрузки пользователя
+  const isAuthenticated = useSelector(getIsAuthenticated); // isAuthCheckedSelector — селектор получения состояния загрузки пользователя
   const user = useSelector(getUser); // userDataSelector — селектор получения пользователя из store
   const location = useLocation();
 
-  if (!isAuthChecked) {
-    // пока идёт чекаут пользователя, показываем прелоадер
-    return <Preloader />;
-  }
+  // if (!isAuthChecked) {
+  //   // пока идёт чекаут пользователя, показываем прелоадер
+  //   return <Preloader />;
+  // }
 
-  if (!onlyUnAuth && !user) {
+  if (!onlyUnAuth && !isAuthenticated) {
     // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
+    console.log(!user);
     return <Navigate replace to='/login' state={{ from: location }} />; // в поле from объекта location.state записываем информацию о URL
   }
 
