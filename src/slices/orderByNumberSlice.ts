@@ -8,7 +8,7 @@ import { TOrder } from '../utils/types';
 
 const initialState = {
   orders: [] as TOrder[],
-  orderByNumberLoadingStatus: 'idle',
+  orderByNumberLoadingStatus: 'idle' as 'idle' | 'loading' | 'error',
   orderByNumber: null as TOrder | null
 };
 

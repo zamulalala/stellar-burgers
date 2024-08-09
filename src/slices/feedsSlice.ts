@@ -4,7 +4,7 @@ import { TOrder } from '../utils/types';
 
 const initialState = {
   feeds: [] as TOrder[],
-  feedsLoadingStatus: 'idle',
+  feedsLoadingStatus: 'idle' as 'idle' | 'loading' | 'error',
   total: 0,
   totalToday: 0
 };

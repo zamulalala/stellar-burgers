@@ -3,8 +3,8 @@ import { orderBurgerApi } from '../utils/burger-api';
 import { TOrder } from '../utils/types';
 
 const initialState = {
-  orderBurger: null as TOrder | null,
-  orderBurgerLoadingStatus: 'idle'
+  currentOrderBurger: null as TOrder | null,
+  orderLoadingStatus: 'idle' as 'idle' | 'loading' | 'error'
 };
 
 export const orderBurger = createAsyncThunk(
@@ -17,28 +17,34 @@ export const orderBurger = createAsyncThunk(
 const orderBurgerSlice = createSlice({
   name: 'orderBurger',
   initialState,
-  reducers: {},
+  reducers: {
+    clearOrder: (state) => {
+      state.currentOrderBurger = null;
+    }
+  },
   selectors: {
-    getOrderBurger: (state) => state.orderBurger,
-    getOrderBurgerLoadingStatus: (state) => state.orderBurgerLoadingStatus
+    getCurrentOrderBurger: (state) => state.currentOrderBurger,
+    getOrderBurgerLoadingStatus: (state) => state.orderLoadingStatus
   },
   extraReducers: (builder) => {
     builder
       .addCase(orderBurger.pending, (state) => {
-        state.orderBurgerLoadingStatus = 'loading';
+        state.orderLoadingStatus = 'loading';
       })
       .addCase(orderBurger.fulfilled, (state, action) => {
-        state.orderBurgerLoadingStatus = 'idle';
-        state.orderBurger = action.payload.order;
+        state.orderLoadingStatus = 'idle';
+        state.currentOrderBurger = action.payload.order;
       })
       .addCase(orderBurger.rejected, (state) => {
-        state.orderBurgerLoadingStatus = 'error';
+        state.orderLoadingStatus = 'error';
       })
       .addDefaultCase(() => {});
   }
 });
 
-export const { getOrderBurger, getOrderBurgerLoadingStatus } =
+export const { clearOrder } = orderBurgerSlice.actions;
+
+export const { getCurrentOrderBurger, getOrderBurgerLoadingStatus } =
   orderBurgerSlice.selectors;
 
 export default orderBurgerSlice.reducer;

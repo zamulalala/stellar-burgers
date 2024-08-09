@@ -4,7 +4,7 @@ import { TIngredient } from '@utils-types';
 
 const initialState = {
   ingredients: [] as TIngredient[],
-  ingredientsLoadingStatus: 'idle'
+  ingredientsLoadingStatus: 'idle' as 'idle' | 'loading' | 'error'
 };
 
 export const fetchIngredients = createAsyncThunk(

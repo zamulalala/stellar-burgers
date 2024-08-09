@@ -15,12 +15,6 @@ import {
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
-
   const buns = useSelector(getBuns);
   const mains = useSelector(getMains);
   const sauces = useSelector(getSauces);

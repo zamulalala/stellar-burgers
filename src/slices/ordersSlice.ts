@@ -4,7 +4,7 @@ import { TOrder } from '../utils/types';
 
 const initialState = {
   orders: [] as TOrder[],
-  ordersLoadingStatus: 'idle'
+  ordersLoadingStatus: 'idle' as 'idle' | 'loading' | 'error'
 };
 
 export const fetchOrders = createAsyncThunk(

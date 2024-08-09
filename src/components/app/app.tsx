@@ -13,27 +13,97 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from './../../services/store';
+import { useEffect } from 'react';
+import { fetchUser } from './../../slices/userSlice';
+import { ProtectedRoute } from '../protected-route/protectedRoute';
+import { fetchIngredients } from './../../slices/ingredientsSlice';
 
 const App = () => {
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
+  const handleCloseModal = () => {
+    navigate(-1);
+  };
 
   return (
     <div className={styles.app}>
       <AppHeader />
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<Feed />} />
+        <Route
+          path='/login'
+          element={
+            // <ProtectedRoute onlyUnAuth>
+            <Login />
+            // </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/register'
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/forgot-password'
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/reset-password'
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} />
-        <Route path='/profile/orders/:number' element={<OrderInfo />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
@@ -42,12 +112,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal
-                title={''}
-                onClose={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-              >
+              <Modal title={''} onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }
@@ -55,25 +120,15 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal
-                title={''}
-                onClose={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-              >
-                <OrderInfo />
+              <Modal title={''} onClose={handleCloseModal}>
+                <IngredientDetails />
               </Modal>
             }
           />
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal
-                title={''}
-                onClose={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-              >
+              <Modal title={''} onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }
