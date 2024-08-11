@@ -37,7 +37,7 @@ const App = () => {
   }, []);
 
   const handleCloseModal = () => {
-    navigate(-1);
+    navigate(backgroundLocation?.pathname || '/', { replace: true });
   };
 
   const onlyUnAuth = true;
@@ -108,7 +108,6 @@ const App = () => {
         />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
-
       {backgroundLocation && (
         <Routes>
           <Route

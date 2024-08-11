@@ -21,13 +21,13 @@ export const ProtectedRoute = ({
   //   return <Preloader />;
   // }
 
-  if (!onlyUnAuth && !isAuthenticated) {
+  if (!onlyUnAuth && !user.name) {
     // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
-    console.log(!user);
+    console.log(!user.name);
     return <Navigate replace to='/login' state={{ from: location }} />; // в поле from объекта location.state записываем информацию о URL
   }
 
-  if (onlyUnAuth && user) {
+  if (onlyUnAuth && user.name) {
     // если пользователь на странице авторизации и данные есть в хранилище
     // при обратном редиректе получаем данные о месте назначения редиректа из объекта location.state
     // в случае если объекта location.state?.from нет — а такое может быть, если мы зашли на страницу логина по прямому URL

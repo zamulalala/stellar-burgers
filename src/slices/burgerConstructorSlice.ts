@@ -34,6 +34,24 @@ const burgerConstructorSlice = createSlice({
     resetConstructor: (state) => {
       state.constructorItems.bun = null;
       state.constructorItems.ingredients = [];
+    },
+    moveUpIngredients: (state, action) => {
+      const index = action.payload;
+      if (index > 0) {
+        const temp = state.constructorItems.ingredients[index];
+        state.constructorItems.ingredients[index] =
+          state.constructorItems.ingredients[index - 1];
+        state.constructorItems.ingredients[index - 1] = temp;
+      }
+    },
+    moveDownIngredients: (state, action) => {
+      const index = action.payload;
+      if (index < state.constructorItems.ingredients.length - 1) {
+        const temp = state.constructorItems.ingredients[index];
+        state.constructorItems.ingredients[index] =
+          state.constructorItems.ingredients[index + 1];
+        state.constructorItems.ingredients[index + 1] = temp;
+      }
     }
   },
   selectors: {
@@ -41,8 +59,14 @@ const burgerConstructorSlice = createSlice({
   }
 });
 
-export const { addBun, addIngredient, removeIngredient, resetConstructor } =
-  burgerConstructorSlice.actions;
+export const {
+  addBun,
+  addIngredient,
+  removeIngredient,
+  resetConstructor,
+  moveUpIngredients,
+  moveDownIngredients
+} = burgerConstructorSlice.actions;
 
 export const { getBurgerConstructor } = burgerConstructorSlice.selectors;
 
