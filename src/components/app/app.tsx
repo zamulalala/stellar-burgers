@@ -22,7 +22,7 @@ import { fetchIngredients } from './../../slices/ingredientsSlice';
 
 const App = () => {
   const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const backgroundLocation = location.state?.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -108,6 +108,7 @@ const App = () => {
         />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
+
       {backgroundLocation && (
         <Routes>
           <Route
@@ -139,4 +140,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
