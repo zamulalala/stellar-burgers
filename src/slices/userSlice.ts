@@ -30,7 +30,7 @@ const handlePending = (state: any) => {
 
 const handleRejected = (state: any, action: any) => {
   state.loadingStatus = 'error';
-  state.error = action.payload as string;
+  state.error = action.error.message || 'An error occurred';
 };
 
 const handleAuthFulfilled = (state: any, action: any) => {
@@ -42,87 +42,59 @@ const handleAuthFulfilled = (state: any, action: any) => {
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (data: TRegisterData, { rejectWithValue }) => {
-    try {
-      const response = await registerUserApi(data);
-      setCookie('accessToken', response.accessToken);
-      localStorage.setItem('refreshToken', response.refreshToken);
-      return response.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    const response = await registerUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response.user;
   }
 );
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (data: TLoginData, { rejectWithValue }) => {
-    try {
-      const response = await loginUserApi(data);
-      setCookie('accessToken', response.accessToken);
-      localStorage.setItem('refreshToken', response.refreshToken);
-      return response.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    const response = await loginUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response.user;
   }
 );
 
 export const fetchUser = createAsyncThunk(
   'user/fetchUser',
   async (_, { rejectWithValue }) => {
-    try {
-      const response = await getUserApi();
-      return response.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    const response = await getUserApi();
+    return response.user;
   }
 );
 
 export const updateUser = createAsyncThunk(
   'user/updateUser',
   async (data: Partial<TRegisterData>, { rejectWithValue }) => {
-    try {
-      const response = await updateUserApi(data);
-      return response.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    const response = await updateUserApi(data);
+    return response.user;
   }
 );
 
 export const logoutUser = createAsyncThunk(
   'user/logoutUser',
   async (_, { rejectWithValue }) => {
-    try {
-      await logoutApi();
-      setCookie('accessToken', '');
-      localStorage.removeItem('refreshToken');
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    await logoutApi();
+    setCookie('accessToken', '');
+    localStorage.removeItem('refreshToken');
   }
 );
 
 export const forgotPassword = createAsyncThunk(
   'user/forgotPassword',
   async (data: { email: string }, { rejectWithValue }) => {
-    try {
-      await forgotPasswordApi(data);
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    await forgotPasswordApi(data);
   }
 );
 
 export const resetPassword = createAsyncThunk(
   'user/resetPassword',
   async (data: { password: string; token: string }, { rejectWithValue }) => {
-    try {
-      await resetPasswordApi(data);
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
+    await resetPasswordApi(data);
   }
 );
 

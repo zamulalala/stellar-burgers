@@ -4,7 +4,6 @@ import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from './../../services/store';
 import { fetchFeeds } from '../../slices/feedsSlice';
-import { fetchIngredients } from './../../slices/ingredientsSlice';
 
 export const Feed: FC = () => {
   /** TODO: взять переменную из стора */
@@ -13,7 +12,6 @@ export const Feed: FC = () => {
 
   useEffect(() => {
     dispatch(fetchFeeds());
-    dispatch(fetchIngredients());
   }, [dispatch]);
 
   if (!orders.length) {
