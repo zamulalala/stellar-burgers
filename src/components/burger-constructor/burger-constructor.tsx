@@ -33,8 +33,7 @@ export const BurgerConstructor: FC = () => {
     if (!constructorItems.bun || orderRequest) return;
 
     if (!isAuth) {
-      navigate('/login');
-      console.log(isAuth);
+      return navigate('/login');
     }
 
     const orderIngredients = [];

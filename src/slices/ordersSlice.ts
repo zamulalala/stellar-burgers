@@ -7,12 +7,7 @@ const initialState = {
   ordersLoadingStatus: 'idle' as 'idle' | 'loading' | 'error'
 };
 
-export const fetchOrders = createAsyncThunk(
-  'orders/fetchOrders',
-  async function () {
-    return await getOrdersApi();
-  }
-);
+export const fetchOrders = createAsyncThunk('orders/fetchOrders', getOrdersApi);
 
 const ordersSlice = createSlice({
   name: 'orders',

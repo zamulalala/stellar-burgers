@@ -14,9 +14,7 @@ const initialState = {
 
 export const fetchOrderByNumber = createAsyncThunk(
   'orderByNumber/fetchOrders',
-  async function (orderNumber: number) {
-    return await getOrderByNumberApi(orderNumber);
-  }
+  getOrderByNumberApi
 );
 
 const orderByNumberSlice = createSlice({

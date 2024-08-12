@@ -9,12 +9,7 @@ const initialState = {
   totalToday: 0
 };
 
-export const fetchFeeds = createAsyncThunk(
-  'feeds/fetchOrders',
-  async function () {
-    return await getFeedsApi();
-  }
-);
+export const fetchFeeds = createAsyncThunk('feeds/fetchOrders', getFeedsApi);
 
 const feedsSlice = createSlice({
   name: 'feeds',

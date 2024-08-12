@@ -9,9 +9,7 @@ const initialState = {
 
 export const orderBurger = createAsyncThunk(
   'orderBurger/fetchOrders',
-  async function (data: string[]) {
-    return await orderBurgerApi(data);
-  }
+  orderBurgerApi
 );
 
 const orderBurgerSlice = createSlice({

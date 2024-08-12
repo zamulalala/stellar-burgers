@@ -9,9 +9,7 @@ const initialState = {
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
-  async function () {
-    return await getIngredientsApi();
-  }
+  getIngredientsApi
 );
 
 const ingredientsSlice = createSlice({
