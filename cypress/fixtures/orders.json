@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "name": "Флюоресцентный био-марсианский бургер",
+  "order": {
+    "ingredients": [
+      "643d69a5c3f7b9001cfa093d",
+      "643d69a5c3f7b9001cfa0941",
+      "643d69a5c3f7b9001cfa093d"
+    ],
+    "status": "done",
+    "_id": "66e4584f119d45001b506b77",
+    "owner": {
+      "name": "zamulalala",
+      "email": "ritazamula2001@gmail.com",
+      "createdAt": "2024-09-13T15:20:47.460Z",
+      "updatedAt": "2024-09-13T15:20:47.460Z"
+    },
+    "number": 52930,
+    "price": 1255,
+    "createdAt": "2024-09-13T15:20:47.460Z",
+    "updatedAt": "2024-09-13T15:20:48.108Z"
+  }
+}
