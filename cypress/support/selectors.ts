@@ -1,0 +1,16 @@
+export const SELECTORS = {
+  BURGER_INGREDIENTS: '[data-cy="burger-ingredients"]',
+  INGREDIENT: '[data-cy="ingredient"]',
+  ADD_BUTTON: 'button:contains("Добавить")',
+  CONSTRUCTOR_ELEMENTS: '[data-cy="constructor-elements"]',
+  BUN_TOP: '[data-cy="bun-top"]',
+  BUN_BOTTOM: '[data-cy="bun-bottom"]',
+  ORDER_TOTAL: '[data-cy="order-total"]',
+  MODAL: '[data-cy="modal"]',
+  INGREDIENT_DETAILS: '[data-cy="ingredient-details"]',
+  MODAL_CLOSE_BUTTON: '[data-cy="modal-close-button"]',
+  MODAL_OVERLAY: '[data-cy="modal-overlay"]',
+  ORDER_BUTTON: '[data-cy="order-button"]',
+  ORDER_NUMBER: '[data-cy="order-number"]',
+  MODAL_CLOSE: '[data-cy="modal-close"]',
+};
